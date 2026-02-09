@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Button } from '../ui';
-import { X, User, Mail, Calendar, CheckCircle, XCircle } from 'lucide-react';
+import { X, Mail, Calendar } from 'lucide-react';
 import './records.css';
 
 const RecordDetails = ({ record, onClose }) => {
@@ -21,7 +21,6 @@ const RecordDetails = ({ record, onClose }) => {
 
     let totalWorkingDays = 0;
     let totalPresent = 0;
-    let totalAbsent = 0;
 
     const calendarGrid = [];
     for (let i = 1; i <= daysInMonth; i++) {
@@ -38,8 +37,6 @@ const RecordDetails = ({ record, onClose }) => {
 
         if (status === 'Present' || status === 'Work From Home') {
             totalPresent++;
-        } else if (status === 'Absent') {
-            totalAbsent++;
         } else if (status === 'Half Day') {
             totalPresent += 0.5;
         }
