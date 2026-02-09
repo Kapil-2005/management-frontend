@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import API from '../api';
+import { createRecord } from '../services/recordService';
 
 function AddEmployee({ onAdded }) {
   const [form, setForm] = useState({ name: '', email: '', position: '' });
@@ -10,7 +10,7 @@ function AddEmployee({ onAdded }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    API.post('/employees/employees/', form)
+    createRecord({ ...form, role: form.position }) // Map position to role
       .then(res => {
         onAdded(); // refresh list after adding
         setForm({ name: '', email: '', position: '' });

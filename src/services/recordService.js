@@ -1,19 +1,18 @@
-// Record Service - Wrapper around storageService for backward compatibility
-// All operations use localStorage/sessionStorage - no backend required
+import API from '../api';
 
-import * as storageService from './storageService';
+// Employee CRUD
+export const getRecords = () => API.get('/employees');
+export const createRecord = (data) => API.post('/employees', data);
+export const updateRecord = (id, data) => API.put(`/employees/${id}`, data);
+export const deleteRecord = (id) => API.delete(`/employees/${id}`);
 
-// Re-export all storage service functions
-export const getRecords = storageService.getRecords;
-export const createRecord = storageService.createRecord;
-export const updateRecord = storageService.updateRecord;
-export const deleteRecord = storageService.deleteRecord;
-export const markAttendance = storageService.markAttendance;
-export const getAttendance = storageService.getAttendance;
-export const getAllAttendance = storageService.getAllAttendance;
+// Attendance
+export const markAttendance = (employeeId, status, date) =>
+    API.post('/attendance/mark', { employeeId, status, date });
 
-// Additional exports
-export const generateMonthlyReport = storageService.generateMonthlyReport;
-export const clearAllData = storageService.clearAllData;
-export const exportData = storageService.exportData;
-export const importData = storageService.importData;
+export const getAttendance = (employeeId) =>
+    API.get(`/attendance/${employeeId}`);
+
+// Monthly Report
+export const generateMonthlyReport = (month, year) =>
+    API.get(`/attendance/report?month=${month}&year=${year}`); // We'll add this to backend next

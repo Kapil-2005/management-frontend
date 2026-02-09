@@ -1,16 +1,16 @@
-// Backend API configuration (currently disabled - using localStorage)
-// Uncomment below to use backend API
-
-/*
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api',   // Local backend
-  // baseURL: 'https://your-backend.onrender.com/api',  // Production backend
+  baseURL: 'https://management-backend-ur0n.onrender.com/api', // New Express Backend
+});
+
+// Adding a request interceptor to include the JWT token (for when we add auth)
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export default API;
-*/
-
-// For now, using localStorage - no API needed
-export default null;
